@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <!-- Use any element to open the sidenav -->
+    <span *ngIf="isAuthenticated" (click)="openSideNav()" class="text-light">
+        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+    </span> 
+
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="#" class="offset-md-2 text-light">Logo</a>
+    
+    <!-- Links -->
+    <ul class="navbar-nav offset-md-2">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Eye Market</a>
+      </li>
+    </ul>
+</nav>

@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: url('https://previews.123rf.com/images/olegdudko/olegdudko1507/olegdudko150703070/42076325-supermarket-background-market-.jpg');
+    /* filter: blur(4px);
+    -webkit-filter: blur(4px); */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
+    
