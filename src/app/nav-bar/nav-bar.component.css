@@ -4,3 +4,7 @@
   .example-spacer {
     flex: 1 1 auto;
   }
+
+  .navbar {
+    background-color: #00B0F0;
+  }

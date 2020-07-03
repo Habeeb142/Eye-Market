@@ -7,7 +7,7 @@
         <a href="javascript:void(0)" style="font-size: 35px; color: red;padding-right: 20px" (click)="closeNav()">&times;</a>
     </div>
     
-    <a href="#" class="mt-3" style="white-space: nowrap">
+    <a href="javascript:void(0)" (click)='startOperation()'  class="mt-3" style="white-space: nowrap">
         <i class="fa fa-tasks mr-1" aria-hidden="true"></i>
         Start Operation
     </a>
@@ -17,12 +17,16 @@
     </a>
     <a (click)="logout()" href="#" class=" mt-4 text-danger">
         <i class="fa fa-sign-out mr-1" aria-hidden="true"></i>
-        Logout</a>
+        Logout
+    </a>
+    <a (click)="refresh()" href="#" class=" mt-4 text-danger">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+        Refresh
+    </a>
     <a href="#" class=" mt-4 text-info">Version: 3.0</a>
 </div>
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 <div id="main">
     <app-login *ngIf="!isAuthenticated" ></app-login>
-    <app-home *ngIf="isAuthenticated"></app-home>
 </div>

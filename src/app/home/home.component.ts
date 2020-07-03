@@ -3,6 +3,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import {} from 'googlemaps';
 import { ViewChild } from '@angular/core';
+import { ServerService } from '../service/server.service';
 
 @Component({
   selector: 'app-home',
@@ -14,17 +15,107 @@ export class HomeComponent implements OnInit {
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
 
-  constructor(private auth: AuthService, public rout: Router) { }
+  public day;
+  public beach;
+  public fakerIt;
+  public marker;
+  public dataCollector;
+  public coord;
+  public userId;
+
+  constructor(
+    private auth: AuthService,
+    public rout: Router,
+    private server: ServerService
+  ) { }
 
   ngOnInit(): void {
-    this.initMap();
+    this.dataFunc();
+    this.day = this.dateFunc();
+    this.coord = this.getLocation();
   }
 
-  initMap() {
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+          localStorage.setItem('lat', position.coords.latitude.toString());
+          localStorage.setItem('long', position.coords.longitude.toString());
+      });
+      let lat = parseInt(localStorage.getItem('lat'));
+      let long = parseInt(localStorage.getItem('long'));
+  
+      return {lat, long}
+    }
+  }
+
+  initMap(data) {
+    this.dataCollector = data;
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
-        center: {lat: 6.9075, lng: 3.5813 }
+        // center: {lat: this.coord.lat, lng: this.coord.long }
+        center: { lat: 6.5904 , lng: 3.30621 }
       });
+      this.setMarkers(map); 
+    }
+
+  setMarkers(map) {
+    for (var i = 0; i < this.dataCollector.length; i++) {
+      this.marker = new google.maps.Marker({
+      map: map,
+      // draggable: true,
+      icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      animation: google.maps.Animation.DROP,
+      position: {lat: parseFloat(this.dataCollector[i].latitude), lng: parseFloat(this.dataCollector[i].longitude) },
+      title: this.dataCollector[i].storeName
+    });
+  
+    // var content = 'write up';
+    // var infowindow = new google.maps.InfoWindow()
+    
+    // google.maps.event.addListener(this.marker,'click', (function(marker,content,infowindow,){ 
+    //   return function() {
+    //     infowindow.setContent(content);
+    //     infowindow.open(map,marker);
+    // };
+    // })(this.marker,content,infowindow));
+  }
+}
+
+  dataFunc() {
+
+    this.userId = localStorage.getItem('userId');
+
+    this.server.getData(this.userId).subscribe(data=>{
+      this.dataCollector = data.pocs;
+      this.initMap(this.dataCollector)
+    })
+    
+  }
+
+  dateFunc() {console.log(this.dataCollector)
+    switch(new Date().getDay()) {
+      case 1:
+        return 'Monday';
+        break;
+      case 2:
+        return 'Tuesday';
+        break;
+      case 3:
+        return 'Wednesday';
+        break;
+      case 4:
+        return 'Thursday';
+        break;
+      case 5:
+        return 'Friday';
+        break;
+      case 6:
+        return 'Saturday';
+        break;
+      case 7:
+        return 'Sundayday';
+        break;
+    }
   }
 
 }

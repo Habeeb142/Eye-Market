@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { ServerService } from '../service/server.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { AuthService } from '../service/auth.service';
 export class LoginComponent implements OnInit {
 
   public notice = 'Sign In';
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private server: ServerService) { }
 
   public user = {
     userId: null,
@@ -25,9 +26,16 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.notice = 'Sign In';
-      // when back frm login
-      this.auth.setAuth(this.user.userId);
-      window.location.reload(false);
+      this.server.logMeInMyDear(this.user).subscribe(data=>{
+        if(data.msg == "You're logged in") {
+          this.auth.setAuth(this.user.userId);
+          window.location.reload(false);
+        }
+        else {
+          this.notice = 'Incorrect Email or Password';
+        }
+      })
+     
     }
   }
 

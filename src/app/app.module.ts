@@ -11,6 +11,10 @@ import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MyRouteComponent } from './my-route/my-route.component';
+import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
+import { PocComponent } from './poc/poc.component';
+import { AmOnlineComponent } from './am-online/am-online.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     NavBarComponent,
     SideNavComponent,
-    DashboardComponent
+    DashboardComponent,
+    MyRouteComponent,
+    DailyScheduleComponent,
+    PocComponent,
+    AmOnlineComponent
   ],
   imports: [
     BrowserModule,

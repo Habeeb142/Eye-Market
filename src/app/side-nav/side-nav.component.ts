@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventEmitterService } from '../service/event-emitter.service'; 
 import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-side-nav',
@@ -11,7 +12,11 @@ export class SideNavComponent implements OnInit {
 
   isAuthenticated: boolean;
 
-  constructor(private eventEmitterService: EventEmitterService, private auth: AuthService) { }
+  constructor(
+    private eventEmitterService: EventEmitterService,
+    private auth: AuthService,
+    public rout: Router
+    ) { }
 
   ngOnInit(): void {
     this.listenToEvents();
@@ -50,9 +55,18 @@ export class SideNavComponent implements OnInit {
     }  
   }
 
+  startOperation(){
+    this.closeNav();
+    this.rout.navigate(['MyRoute'])
+  }
+
   logout(): void {
     this.auth.logout();
     window.location.reload(false);
   } 
+
+  refresh(): void {
+    window.location.reload(false)
+  }
 
 }

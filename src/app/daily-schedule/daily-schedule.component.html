@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="btn-primary">Daily Call Schedule</h3>
+            </div>
+
+            <div class="card-header text-center p-2">
+                <button class="text-center p-1 mr-2" id="btnList" (click)="listDailySchedule()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    Daily Schedule
+                </button>
+                <button class="text-center p-1 ml-2 pl-4 pr-4" id="btnAdd" (click)="addPoc()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    Add Poc
+                </button>
+            </div>
+            
+            <div class="pl-2">
+                <i class="fa fa-arrow-circle-left font-weight-bold text-warning pr-3" (click)="backFunc()" aria-hidden="true" style="font-size: 25px"></i>
+            </div>
+
+            <div class="content container pl-4 list-group" id="listDailySchedule">
+                <a href="javascript:void(0)" class="list-group-item disabled text-center mb-2">
+                    Pocs Scheduled For {{day}} ({{data?.length}})
+                </a>
+                <a [routerLink]="['/poc',data?.id ]" class="list-group-item" *ngFor = "let data of data">
+                    {{ data?.outlet }}
+                </a>
+            </div>
+            <!-- Add Pocs -->
+            <div class="content container pl-4 list-group" id="addPoc">
+                <a href="javascript:void(0)" class="list-group-item disabled text-center mb-2">
+                    Select Poc to be added to your {{day}} Schedule
+                </a>
+                <a (click) = "addThisPoc(data)" class="list-group-item d-flex" *ngFor = "let data of data">
+                    {{ data?.outlet }}
+                    <i class="fa fa-check ml-auto" id={{data?.id}} style="color: green; display: none" aria-hidden="true"></i>
+                    <i class="fa fa-plus-circle ml-auto" id=_{{data?.id}} style="color: green" aria-hidden="true"></i>
+                </a>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    
