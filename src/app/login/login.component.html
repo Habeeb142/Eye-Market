@@ -1,34 +1,47 @@
-<div class="container">
+<div class="container" *ngIf="!resetPassword">
         <div class="d-flex justify-content-center h-100">
             <div class="card">
-                <div class="card-header text-center">
+                <div class="card-head text-center mt-2">
                     <h3>{{ notice }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-bod p-2">
                     <form (submit) = "login()">
-                        <div class="input-group form-group">
+                        <span style="color: #F79520;" class="p-1 pb-2 offset-4" *ngIf="userId">Enter Your Email</span>
+                        <div class="input-group form-group mt-1" *ngIf="userId">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
                             </div>
-                            <input type="email"  class="form-control" placeholder="Email" name="userId" [(ngModel)]="user.userId">
+                            <input type="email"  class="form-control" placeholder="Email" name="email" [(ngModel)]="user.email">
                             
                         </div>
-                        <div class="input-group form-group">
+
+                        <span style="color: #F79520;" class="p-1 pb-2 offset-4" *ngIf="password">Enter Your Password</span>
+                        <div class="input-group form-group mt-1" *ngIf="password">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
                             <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password">
                         </div>
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn login_btn offset-3 mt-1">
+
+                        <div class="form-group" *ngIf="userId">
+                            <input type="button" *ngIf="!loading" value="Next" class="btn login_btn offset-3 mt-3" (click) = "next()">
+                        </div>
+                        <div class="form-group" *ngIf="loading" >
+                            <input type="button" value="Please wait..." class="btn loading offset-3 mt-3" disabled>
+                        </div>
+
+                        <div class="form-group" *ngIf="password">
+                            <input type="submit" value="Login" class="btn login_btn offset-3 mt-3">
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
-                        <a href="#" style="color: #00B0F0">Forgot your password?</a>
+                        <a href="#" style="color: #F79520">Forgot your password?</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</div>
+
+<app-reset-password *ngIf="resetPassword"></app-reset-password>

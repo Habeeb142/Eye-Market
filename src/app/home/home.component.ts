@@ -41,8 +41,8 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('lat', position.coords.latitude.toString());
           localStorage.setItem('long', position.coords.longitude.toString());
       });
-      let lat = parseInt(localStorage.getItem('lat'));
-      let long = parseInt(localStorage.getItem('long'));
+      let lat = parseFloat(localStorage.getItem('lat'));
+      let long = parseFloat(localStorage.getItem('long'));
   
       return {lat, long}
     }
@@ -50,10 +50,13 @@ export class HomeComponent implements OnInit {
 
   initMap(data) {
     this.dataCollector = data;
+    let lat = parseFloat(this.dataCollector[0].latitude);
+    let long = parseFloat(this.dataCollector[0].longitude);
+
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
+        zoom: 14,
         // center: {lat: this.coord.lat, lng: this.coord.long }
-        center: { lat: 6.5904 , lng: 3.30621 }
+        center: { lat: lat, lng: long }
       });
       this.setMarkers(map); 
     }
@@ -66,7 +69,7 @@ export class HomeComponent implements OnInit {
       icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
       animation: google.maps.Animation.DROP,
       position: {lat: parseFloat(this.dataCollector[i].latitude), lng: parseFloat(this.dataCollector[i].longitude) },
-      title: this.dataCollector[i].storeName
+      title: this.dataCollector[i].outlet
     });
   
     // var content = 'write up';
@@ -92,7 +95,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-  dateFunc() {console.log(this.dataCollector)
+  dateFunc() {
     switch(new Date().getDay()) {
       case 1:
         return 'Monday';
@@ -112,10 +115,14 @@ export class HomeComponent implements OnInit {
       case 6:
         return 'Saturday';
         break;
-      case 7:
-        return 'Sundayday';
+      case 0:
+        return 'Sunday';
         break;
     }
+  }
+
+  closeCallShedule() {
+    document.getElementById('callShedule').style.display = 'none'
   }
 
 }

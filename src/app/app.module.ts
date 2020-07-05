@@ -15,6 +15,7 @@ import { MyRouteComponent } from './my-route/my-route.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { PocComponent } from './poc/poc.component';
 import { AmOnlineComponent } from './am-online/am-online.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AmOnlineComponent } from './am-online/am-online.component';
     MyRouteComponent,
     DailyScheduleComponent,
     PocComponent,
-    AmOnlineComponent
+    AmOnlineComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

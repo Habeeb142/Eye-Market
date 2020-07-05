@@ -13,30 +13,73 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthService, private server: ServerService) { }
 
   public user = {
-    userId: null,
+    email: null,
     password: null
   }
 
+  userId:boolean; password:boolean; resetPassword:boolean; loading:boolean;
+
   ngOnInit(): void {
+    this.setDisplay();
+  }
+
+  next() {
+    this.notice = 'Sign In';
+    if(this.user.email==null) {
+      this.notice = 'Please fill the input box correctly'
+    }
+    else {
+
+      this.loading = true;
+
+      this.server.getData(this.user.email).subscribe(data => { 
+        this.loading = false;
+        if(data.pocs.length > 0 && data.pocs[0].activated == 0) {
+          // this.userId = false; this.password = this.userId; this.resetPassword = !this.userId;
+          this.userId = false; this.password = !this.userId; this.resetPassword = this.userId
+          this.server.setData(this.user.email);
+        }
+      
+        else if(data.activated == 1){
+          this.userId = false; this.password = !this.userId; this.resetPassword = this.userId
+        }
+
+        else {
+          this.notice = 'Invalid Email';
+        }
+
+      }, error => this.handleError(error.status))
+    }
+  };
+
+
+  setDisplay() {
+    this.userId = true; this.password = !this.userId; this.resetPassword = !this.userId; this.loading = false;
   }
   
   login(): void {
-    if(this.user.userId==null || this.user.password==null) {
+    this.notice = 'Sign In';
+    if(this.user.email==null || this.user.password==null) {
       this.notice = 'Please fill all input boxes correctly'
     }
     else {
       this.notice = 'Sign In';
       this.server.logMeInMyDear(this.user).subscribe(data=>{
+
         if(data.msg == "You're logged in") {
-          this.auth.setAuth(this.user.userId);
+          this.auth.setAuth(this.user.email);
           window.location.reload(false);
         }
-        else {
-          this.notice = 'Incorrect Email or Password';
-        }
-      })
+
+      }, error=>this.handleError(error.status))
      
     }
+  }
+
+  
+  handleError(status) {
+    this.loading = false;
+    this.notice = (status == 401) ? 'Invalid Credential(s)' : 'Network Problem';
   }
 
 }

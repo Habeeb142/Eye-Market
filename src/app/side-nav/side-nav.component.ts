@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventEmitterService } from '../service/event-emitter.service'; 
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { ServerService } from '../service/server.service';
 declare var $:any;
 @Component({
   selector: 'app-side-nav',
@@ -15,7 +16,8 @@ export class SideNavComponent implements OnInit {
   constructor(
     private eventEmitterService: EventEmitterService,
     private auth: AuthService,
-    public rout: Router
+    public rout: Router,
+    private server: ServerService
     ) { }
 
   ngOnInit(): void {
@@ -25,9 +27,11 @@ export class SideNavComponent implements OnInit {
     this.isAuthenticated = this.auth.isAuthenticated();
 
     $('#main').click(function() {
-      document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("main").style.marginLeft = "0";
-      document.body.style.backgroundColor = "white";
+      if(this.isAuthenticated) {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
+      }
     })
   }
 

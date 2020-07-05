@@ -23,7 +23,7 @@ background-color: rgba(0,0,0,0.65) !important;
  span{
     font-size: 60px;
     margin-left: 10px;
-    color: #00B0F0;
+    color: #F79520;
     }
 span:hover{
     color: white;
@@ -36,7 +36,7 @@ span:hover{
     
     span{
     width: 50px;
-    background-color: #00B0F0;
+    background-color: #F79520;
     color: black;
     border:0 !important;
     }

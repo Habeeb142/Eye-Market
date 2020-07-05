@@ -25,10 +25,6 @@ export class AppComponent implements OnInit {
 
       (this.amOnline) ? this.checkServerStorage() : null;
 
-      this.server.getData(this.user).subscribe(data=>{
-          this.server.saveData(data);
-      })
-
     }
     else {
       // alert(false)

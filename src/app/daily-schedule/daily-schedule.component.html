@@ -6,7 +6,7 @@
             </div>
 
             <div class="card-header text-center p-2">
-                <button class="text-center p-1 mr-2" id="btnList" (click)="listDailySchedule()">
+                <button class="text-center p-1 mr-2" id="btnList" (click)="listDailySchedule(data)">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                     Daily Schedule
                 </button>
@@ -20,23 +20,23 @@
                 <i class="fa fa-arrow-circle-left font-weight-bold text-warning pr-3" (click)="backFunc()" aria-hidden="true" style="font-size: 25px"></i>
             </div>
 
-            <div class="content container pl-4 list-group" id="listDailySchedule">
+            <div class="content container pl-4 list-group" *ngIf="dailyScheduleShow">
                 <a href="javascript:void(0)" class="list-group-item disabled text-center mb-2">
-                    Pocs Scheduled For {{day}} ({{data?.length}})
+                    Pocs Scheduled For {{day}} ({{pocsOnSchedule?.length}})
                 </a>
-                <a [routerLink]="['/poc',data?.id ]" class="list-group-item" *ngFor = "let data of data">
+                <a [routerLink]="['/poc',data?.id ]" class="list-group-item" *ngFor = "let data of pocsOnSchedule">
                     {{ data?.outlet }}
                 </a>
             </div>
             <!-- Add Pocs -->
-            <div class="content container pl-4 list-group" id="addPoc">
+            <div class="content container pl-4 list-group" *ngIf="!dailyScheduleShow">
                 <a href="javascript:void(0)" class="list-group-item disabled text-center mb-2">
                     Select Poc to be added to your {{day}} Schedule
                 </a>
-                <a (click) = "addThisPoc(data)" class="list-group-item d-flex" *ngFor = "let data of data">
+                <a (click) = "addThisPoc(data)" class="list-group-item d-flex" *ngFor = "let data of pocsToAdd">
                     {{ data?.outlet }}
-                    <i class="fa fa-check ml-auto" id={{data?.id}} style="color: green; display: none" aria-hidden="true"></i>
-                    <i class="fa fa-plus-circle ml-auto" id=_{{data?.id}} style="color: green" aria-hidden="true"></i>
+                <i class="fa fa-check ml-auto" style="color: green;" aria-hidden="true" *ngIf = "data.markMe"></i>
+                    <i class="fa fa-plus-circle ml-auto"  style="color: green" aria-hidden="true"*ngIf = "!data.markMe"></i>
                 </a>
             </div>
             

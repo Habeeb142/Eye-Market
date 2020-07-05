@@ -6,7 +6,7 @@
     </span> 
 
     <!-- Brand/logo -->
-    <a class="navbar-brand" href="#" class="offset-md-2 text-light">Logo</a>
+    <a class="navbar-brand" href="#" class="offset-md-2 text-light" *ngIf="!isAuthenticated"><img src="/assets/logo3.png" alt="" width="45" height="45"></a>
     
     <!-- Links -->
     <ul class="navbar-nav offset-md-2">
@@ -14,4 +14,6 @@
         <a class="nav-link" href="#">Eye Market</a>
       </li>
     </ul>
+
+    <a class="navbar-brand" href="#" class="offset-md-2 text-light" *ngIf="isAuthenticated"><img src="/assets/logo3.png" alt="" width="45" height="45"></a>
 </nav>
