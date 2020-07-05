@@ -35,12 +35,11 @@ export class LoginComponent implements OnInit {
       this.server.getData(this.user.email).subscribe(data => { 
         this.loading = false;
         if(data.pocs.length > 0 && data.pocs[0].activated == 0) {
-          // this.userId = false; this.password = this.userId; this.resetPassword = !this.userId;
-          this.userId = false; this.password = !this.userId; this.resetPassword = this.userId
+          this.userId = false; this.password = this.userId; this.resetPassword = !this.userId;
           this.server.setData(this.user.email);
         }
       
-        else if(data.activated == 1){
+        else if(data.pocs[0].activated == 1){
           this.userId = false; this.password = !this.userId; this.resetPassword = this.userId
         }
 

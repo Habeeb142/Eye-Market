@@ -25,7 +25,7 @@ export class ServerService {
   }
 
   setPassword(data) {
-    return this.http.post<any>(`${new Env().fakeUrl}/resetPassword`, data);
+    return this.http.patch<any>(`${new Env().fakeUrl}/user/${data.email}`, data);
   }
 
   setData(data) {
