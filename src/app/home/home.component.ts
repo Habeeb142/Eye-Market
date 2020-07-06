@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
 
     this.server.getData(this.userId).subscribe(data=>{
       this.dataCollector = data.pocs;
-      this.initMap(this.dataCollector)
+      this.initMap(this.dataCollector);
     })
     
   }

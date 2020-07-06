@@ -1,12 +1,32 @@
-<div class="container">
+<div class="container" *ngIf="!loading">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-head text-center mt-2">
                 <h3>Cooler Execution</h3>
             </div>
-            <div class="card-bod p-3 mt-5 d-flex">
+            <div class="card-bod p-3 mt-5 d-flex" (click)="snapShot()">
                Take photo
                <i class="fa fa-camera ml-auto" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="loading">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-head text-center text-justify" 
+            style="background-color: #F79520;">
+                <h3 style="font-size: 16px; letter-spacing: 1px" class="mt-1">Validation Report</h3>
+            </div>
+            <div class="card-body text-justify text-center pt-5" style="font-size: 15px; color: white">
+                <span *ngIf="!success && !failure" class="letter-spacing: 1px">Please wait, Validation in progress.... </span>
+                <span *ngIf="success" class="text-justify letter-spacing: 1px">Validation Successfull! </span>
+                <span *ngIf="failure" class="text-justify letter-spacing: 1px">You are beyond 50meters proximity to this Poc! </span>
+            </div>
+            <div class="card-footer  ml-auto text-center mr-1" >
+                <span *ngIf="success || failure" class="text-justify" (click)="okThanks()">Ok, Thanks!</span>
+                <span *ngIf="!success && !failure">Validating...</span>
             </div>
         </div>
     </div>

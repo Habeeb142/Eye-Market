@@ -9,7 +9,7 @@ import { ServerService } from '../service/server.service';
 })
 export class PocComponent implements OnInit {
 
-  public pocId;
+  public pocId; loading:boolean; success:boolean; failure: boolean;
 
   constructor(public actRoute: ActivatedRoute, private server: ServerService) { }
 
@@ -26,9 +26,45 @@ export class PocComponent implements OnInit {
   }
 
   getPocValidation(pocId) {
+    this.loading = true;
+    this.success =  this.failure = !this.loading;
     this.server.getPocValidation(pocId).subscribe(data=>{
-      console.log(data.data)
-    })
+      (data.data == undefined)? this.redo() : this.proceed(data);
+    }, error => this.handleError(error.status))
+  }
+
+  handleError(status) {
+    this.getPocValidation(this.pocId);
+  }
+
+  proceed(data) {
+    if(parseFloat(data.data) > 50) {
+      this.loading = true;
+        this.failure = true;
+        this.success = !this.failure;
+    }
+    else {
+      this.loading = true;
+      this.success = true;
+      this.failure = !this.success
+    }
+  }
+
+  redo() {
+    this.getPocValidation(this.pocId)
+  }
+
+  okThanks():void {
+    this.loading = false;
+  }
+
+  snapShot(): void {
+    if(this.success) {
+      alert('Yo man!, i am about opening your camera');
+    }
+    else {
+      alert('Sorry man!, i cant open your camera, proximity beyond 50m')
+    }
   }
 
 }

@@ -76,7 +76,12 @@ html,body{
     font-weight: bold;
     width: 50%;
     }
-    
+    .card-footer {
+        background-color: #F79520;
+        color: white;
+        width: 50%;
+        border-radius: 5px;
+    }
     .login_btn:hover{
     color: black;
     background-color: white;
@@ -98,3 +103,5 @@ html,body{
         color: #F79520;
         font-size: large;
     }
+
+    

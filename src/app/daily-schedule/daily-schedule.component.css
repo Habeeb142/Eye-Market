@@ -33,7 +33,7 @@
     button {
         border: 1px solid grey;
         border-radius: 4px;
-        background: #B11917;
+        background: #F79520;
         color: white
     }
 
@@ -41,7 +41,7 @@
         border: 1px solid grey;
         border-radius: 4px;
         background: #fff;
-        color: #B11917
+        color: #F79520
     }
 
     a:nth-child(even) {

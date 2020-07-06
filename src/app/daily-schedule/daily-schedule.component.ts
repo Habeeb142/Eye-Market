@@ -42,8 +42,8 @@ export class DailyScheduleComponent implements OnInit {
   addPoc() {
     this.dailyScheduleShow = false;
     document.getElementById('btnAdd').style.background = '#FFF';
-    document.getElementById('btnAdd').style.color = '#b11917';
-    document.getElementById('btnList').style.background = '#B11917';
+    document.getElementById('btnAdd').style.color = '#F79520';
+    document.getElementById('btnList').style.background = '#F79520';
     document.getElementById('btnList').style.color = '#FFF';
     (this.pocsToAdd.length == 0)? this.pushPocToBeAdded() : null;
   }
@@ -59,8 +59,8 @@ export class DailyScheduleComponent implements OnInit {
   listDailySchedule(data) {
     this.dailyScheduleShow = true;
     document.getElementById('btnList').style.background = '#FFF';
-    document.getElementById('btnList').style.color = '#b11917';
-    document.getElementById('btnAdd').style.background = '#B11917';
+    document.getElementById('btnList').style.color = '#F79520';
+    document.getElementById('btnAdd').style.background = '#F79520';
     document.getElementById('btnAdd').style.color = '#FFF';
     (this.pocsOnSchedule.length == 0)? this.pushDailySchedule(data) : null;
   }

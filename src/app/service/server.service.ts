@@ -17,7 +17,7 @@ export class ServerService {
 
   getData(email) {
     // return this.http.get<any>(`${this.base_url}user/${email}`);
-    return this.data = this.http.get<any>(`${new Env().fakeUrl}/user/${email}`);
+    return this.http.get<any>(`${new Env().fakeUrl}/user/${email}`);
   }
 
   checkIfIAmOnline() {
@@ -38,9 +38,20 @@ export class ServerService {
   }
 
   getPocValidation(pocId) {
-      const lat =  localStorage.getItem('lat');
-      const long = localStorage.getItem('long');
+      // const lat =  localStorage.getItem('lat');
+      // const long = localStorage.getItem('long');
+      const long = '3.20025';
+      const lat = '6.50668'; 
       return this.http.get<any>(`${new Env().fakePocUrl}/getPocValidation/${pocId}/${lat}/${long}`);
   }
+
+  // supplyPocs() {
+  //   return this.data
+  // }
+
+  // storeForSupplyPocs(data) {
+  //   this.data = data;
+  //   return this.data
+  // }
 
 }
