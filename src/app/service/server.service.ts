@@ -45,13 +45,13 @@ export class ServerService {
       return this.http.get<any>(`${new Env().fakePocUrl}/getPocValidation/${pocId}/${lat}/${long}`);
   }
 
-  // supplyPocs() {
-  //   return this.data
-  // }
+  supplyPocs() {
+    return this.data
+  }
 
-  // storeForSupplyPocs(data) {
-  //   this.data = data;
-  //   return this.data
-  // }
+  storeForSupplyPocs(data) {
+    this.data = data;
+    return this.data
+  }
 
 }

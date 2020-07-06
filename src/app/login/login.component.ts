@@ -63,9 +63,9 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.notice = 'Sign In';
-      this.server.logMeInMyDear(this.user).subscribe(data=>{
+      this.server.logMeInMyDear(this.user).subscribe(data=>{console.log(data)
 
-        if(data.msg == "You're logged in") {
+        if(data.success == true) {
           this.auth.setAuth(this.user.email);
           window.location.reload(false);
         }
