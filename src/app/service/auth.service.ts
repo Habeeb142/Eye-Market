@@ -87,8 +87,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.setItem('shuke', null);
-    localStorage.setItem('userId', null);
+    localStorage.clear();
     document.cookie = "shuke=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     return true;

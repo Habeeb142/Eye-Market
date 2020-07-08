@@ -8,6 +8,7 @@ import { DailyScheduleComponent } from './daily-schedule/daily-schedule.componen
 import { PocComponent } from './poc/poc.component';
 
 import { AuthGuardService as AuthGuard } from './service/auth-guard.service';
+import { CameraComponent } from './camera/camera.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'MyRoute', component: MyRouteComponent, canActivate: [AuthGuard] },
   { path: 'DailySchedule', component: DailyScheduleComponent, canActivate: [AuthGuard] },
   { path: 'poc/:pocId', component: PocComponent, canActivate: [AuthGuard] },
+  { path: 'camera', component: CameraComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

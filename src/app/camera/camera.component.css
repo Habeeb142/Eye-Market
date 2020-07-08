@@ -1,0 +1,62 @@
+#video {
+  /* border: 1px solid black;
+  box-shadow: 2px 2px 3px black; */
+ 
+  border-width: 2px;
+  width:100%;
+  height:81vh;
+  object-fit: cover;
+}
+
+#reSnap {
+  display: none;
+}
+
+#proceed {
+  display: none;
+}
+
+#photo {
+  /* border: 1px solid black;
+  box-shadow: 2px 2px 3px black; */
+  display: none;
+  position: relative;
+  border-width: 2px;
+  width:100%;
+  height:75vh;
+  object-fit: cover;
+}
+
+#canvas {
+  display: none;
+}
+
+.camera {
+  width: 340px;
+  height: 200%;
+  /* display:inline-block; */
+}
+
+.output {
+  width: 100%;
+  height: 150%;
+  display: none;
+  margin-top: -30px;
+}
+
+#startbutton {
+  display:block;
+  position: absolute;;
+  /* margin-left:auto;
+  margin-right:auto; */
+  /* top: ; */
+  right: 40%;
+  bottom: 10%;
+  background-color: rgba(78, 74, 74, 0.78);
+  border-radius: 20%;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  color: #F79520;
+}

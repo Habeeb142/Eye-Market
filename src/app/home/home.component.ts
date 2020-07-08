@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {} from 'googlemaps';
 import { ViewChild } from '@angular/core';
 import { ServerService } from '../service/server.service';
+import { LocalServerService } from '../service/local-server.service';
 
 @Component({
   selector: 'app-home',
@@ -26,32 +27,27 @@ export class HomeComponent implements OnInit {
   constructor(
     private auth: AuthService,
     public rout: Router,
-    private server: ServerService
+    private server: ServerService,
+    private localServer: LocalServerService
   ) { }
 
   ngOnInit(): void {
+
+    this.coord = {
+      lat: localStorage.getItem('lat'),
+      long: localStorage.getItem('long'),
+    }; 
     this.dataFunc();
     this.day = this.dateFunc();
-    this.coord = this.getLocation();
-  }
 
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-          localStorage.setItem('lat', position.coords.latitude.toString());
-          localStorage.setItem('long', position.coords.longitude.toString());
-      });
-      let lat = parseFloat(localStorage.getItem('lat'));
-      let long = parseFloat(localStorage.getItem('long'));
+  }
   
-      return {lat, long}
-    }
-  }
-
   initMap(data) {
+    (data == undefined)? setTimeout(()=>{location.reload(false)}, 1500) : null;
+    
     this.dataCollector = data;
-    let lat = parseFloat(this.dataCollector[0].latitude);
-    let long = parseFloat(this.dataCollector[0].longitude);
+    let lat = parseFloat(this.dataCollector[3].latitude);
+    let long = parseFloat(this.dataCollector[3].longitude);
 
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
@@ -61,8 +57,11 @@ export class HomeComponent implements OnInit {
       this.setMarkers(map); 
     }
 
+
   setMarkers(map) {
+
     for (var i = 0; i < this.dataCollector.length; i++) {
+
       this.marker = new google.maps.Marker({
       map: map,
       // draggable: true,
@@ -87,12 +86,9 @@ export class HomeComponent implements OnInit {
   dataFunc() {
 
     this.userId = localStorage.getItem('userId');
+    this.dataCollector = this.localServer.supplyDataFromLocalStorage();
+    this.initMap(this.dataCollector);
 
-    this.server.getData(this.userId).subscribe(data=>{
-      this.dataCollector = data.pocs;
-      this.initMap(this.dataCollector);
-    })
-    
   }
 
   dateFunc() {

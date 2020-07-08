@@ -23,4 +23,40 @@
   </div>
   <div class="bg-image"></div>
 </body>
+<script>
+  // video streaming enabled
+  function startCamInIndexHtml() {
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function(stream) {
+          video.srcObject = stream;
+          console.log(video)
+          video.play();
+      })
+      .catch(function(err) {
+        console.log("An error occurred: " + err);
+      }); 
+  }
+
+  // get user location
+  document.addEventListener("click", function(){
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+          localStorage.setItem('lat', position.coords.latitude.toString());
+          localStorage.setItem('long', position.coords.longitude.toString());
+      });
+    }
+
+    // navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    // .then(function(stream) {
+    //     video.srcObject = stream;
+    //     video.play();
+    // })
+    // .catch(function(err) {
+    //   console.log("An error occurred: " + err);
+    // }); 
+
+  });
+
+</script>
 </html>

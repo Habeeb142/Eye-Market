@@ -18,6 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private server: ServerService) { }
 
   ngOnInit(): void {
+    
     this.loading = false;
     this.notice = 'Password Setup';
   }

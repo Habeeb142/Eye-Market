@@ -16,6 +16,7 @@ import { DailyScheduleComponent } from './daily-schedule/daily-schedule.componen
 import { PocComponent } from './poc/poc.component';
 import { AmOnlineComponent } from './am-online/am-online.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CameraComponent } from './camera/camera.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     DailyScheduleComponent,
     PocComponent,
     AmOnlineComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CameraComponent
   ],
   imports: [
     BrowserModule,

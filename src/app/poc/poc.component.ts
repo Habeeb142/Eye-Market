@@ -9,11 +9,12 @@ import { ServerService } from '../service/server.service';
 })
 export class PocComponent implements OnInit {
 
-  public pocId; loading:boolean; success:boolean; failure: boolean;
+  public pocId; loading:boolean; success:boolean; failure: boolean; alert;
 
-  constructor(public actRoute: ActivatedRoute, private server: ServerService) { }
+  constructor(public actRoute: ActivatedRoute, private server: ServerService, public rout: Router) { }
 
   ngOnInit(): void {
+    this.alert = 'Take Photo';
     this.getPocId();
     // call function todo what needs to be done
     this.getPocValidation(this.pocId);
@@ -28,31 +29,28 @@ export class PocComponent implements OnInit {
   getPocValidation(pocId) {
     this.loading = true;
     this.success =  this.failure = !this.loading;
-    this.server.getPocValidation(pocId).subscribe(data=>{
-      (data.data == undefined)? this.redo() : this.proceed(data);
-    }, error => this.handleError(error.status))
+    this.proceed(this.server.getPocValidation(pocId))
   }
 
-  handleError(status) {
-    this.getPocValidation(this.pocId);
+  handleError() {
+    this.alert = 'Cannot open Camera!';
   }
 
   proceed(data) {
-    if(parseFloat(data.data) > 50) {
+    if(data > 150) {
       this.loading = true;
         this.failure = true;
         this.success = !this.failure;
     }
-    else {
+    else if(data <= 150){
       this.loading = true;
       this.success = true;
-      this.failure = !this.success
+      sessionStorage.setItem("cam", "true");
+      this.failure = !this.success;
+      this.okThanks();
     }
   }
 
-  redo() {
-    this.getPocValidation(this.pocId)
-  }
 
   okThanks():void {
     this.loading = false;
@@ -60,11 +58,16 @@ export class PocComponent implements OnInit {
 
   snapShot(): void {
     if(this.success) {
-      alert('Yo man!, i am about opening your camera');
+      this.server.tempStoreDataForCamera(this.pocId);
+      this.rout.navigate(['camera']);
     }
     else {
-      alert('Sorry man!, i cant open your camera, proximity beyond 50m')
+      alert("I can't open your camera, proximity beyond 50m");
     }
+  }
+
+  backFunc() {
+    this.rout.navigate(['MyRoute'])
   }
 
 }

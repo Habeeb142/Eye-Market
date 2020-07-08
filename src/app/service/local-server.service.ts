@@ -20,12 +20,12 @@ export class LocalServerService {
     return false
   }
 
-  updateLocalDisk() {
-    // go to remote and update
+  updateLocalDisk(data) {
+    localStorage.setItem('data', JSON.stringify(data));
   }
 
-  updateRemote()  {
-
+  supplyDataFromLocalStorage()  {
+    return JSON.parse(localStorage.getItem('data'));
   }
 
 }

@@ -40,3 +40,13 @@ span:hover{
     color: black;
     border:0 !important;
     }
+
+    .traffic {
+        min-width: 7px;
+        min-height: 6px;
+        max-height: 15px;
+        margin: 8px;
+        
+        /* border-radius: 2px; */
+
+    }

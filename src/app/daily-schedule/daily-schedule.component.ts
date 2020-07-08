@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServerService } from '../service/server.service';
+import { LocalServerService } from '../service/local-server.service';
+import { ArrayType } from '@angular/compiler';
 
 @Component({
   selector: 'app-daily-schedule',
@@ -12,9 +14,11 @@ export class DailyScheduleComponent implements OnInit {
   public data; public day; public userId; public dailyScheduleShow: boolean; 
   public pocsToAdd = []; public markMe; public pocsOnSchedule = [];
 
-  constructor(public rout: Router, private server: ServerService) { }
+  constructor(public rout: Router, private server: ServerService, private localServer: LocalServerService ) { }
 
   ngOnInit(): void {  
+    
+    this.day = this.dateFunc();
     this.fetchData();
 
     document.getElementById('btnList').style.background = '#FFF';
@@ -23,23 +27,15 @@ export class DailyScheduleComponent implements OnInit {
     this.dailyScheduleShow = true;
     this.markMe = 'none';
 
-    this.day = this.dateFunc();
   }
 
   fetchData() {
-    
-    this.userId = localStorage.getItem('userId');
-    this.server.getData(this.userId).subscribe(data=>{
-      this.data = data.pocs;
-      this.listDailySchedule(data.pocs);
-    });
-
+      this.data = this.localServer.supplyDataFromLocalStorage();
+      this.listDailySchedule(this.data);
   }
 
   backFunc() {
-
     this.rout.navigate(['MyRoute']); 
-
   }
 
   addPoc() {
@@ -98,7 +94,8 @@ export class DailyScheduleComponent implements OnInit {
       data.forEach(element => {
         if(element.schedule == this.day) {
           this.pocsOnSchedule.unshift(element);
-          this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
+          // this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
+          this.pocsOnSchedule.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
           this.pocsOnSchedule = this.pocsOnSchedule.reverse();
         }
       });
@@ -109,8 +106,10 @@ export class DailyScheduleComponent implements OnInit {
 
       this.server.supplyPocs().forEach(element => {
           this.pocsOnSchedule.unshift(element);
-          this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
+          // this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
+          this.pocsOnSchedule = this.pocsOnSchedule.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
           this.pocsOnSchedule = this.pocsOnSchedule.reverse();
+          
       });
     }
 
@@ -119,8 +118,8 @@ export class DailyScheduleComponent implements OnInit {
   addThisPoc(data) {
     
       (this.pocsOnSchedule.includes(data))? null: this.unShift(data);
-      this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
-      this.pocsOnSchedule = this.pocsOnSchedule.reverse();
+      // this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}));
+      // this.pocsOnSchedule = this.pocsOnSchedule.reverse();
 
   }
 
@@ -128,7 +127,7 @@ export class DailyScheduleComponent implements OnInit {
 
     data.markMe = true;
     this.pocsOnSchedule.unshift(data);
-    this.pocsOnSchedule = Object.values(this.pocsOnSchedule.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}))
+    this.pocsOnSchedule = this.pocsOnSchedule.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
     this.server.storeForSupplyPocs(this.pocsOnSchedule);
     
   }

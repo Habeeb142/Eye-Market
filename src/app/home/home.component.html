@@ -3,13 +3,19 @@
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header text-center">
-                <h3>{{day}}'s Call Schedule</h3>
+                <!-- <h3>{{day}}'s Call Schedule</h3> -->
             </div>
             <div class="card-body mr-1 ml-1" style="background: white;">
-                <a [routerLink]="['/poc',data?.id ]" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
-                    <div class="col-2">{{i+1}}:</div> 
+                <a href="javascript:void(0)" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
+                    <!-- <div class="col-2">{{i+1}}:</div>  -->
+                    <div class="traffic" style="background-color: grey; border: 1px solid grey;" *ngIf="data?.traffic!=='pending'"></div> 
+                    <div class="traffic" style="background-color: yellow; border: 1px solid yellow;" *ngIf="data?.traffic=='pending'"></div> 
                     <div class="text-justify">{{ data?.outlet }}</div> <br/>
                 </a>
+                <!-- <a [routerLink]="['/poc',data?.id ]" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
+                    <div class="col-2">{{i+1}}:</div> 
+                    <div class="text-justify">{{ data?.outlet }}</div> <br/>
+                </a> -->
             </div>
         </div>
     </div>
