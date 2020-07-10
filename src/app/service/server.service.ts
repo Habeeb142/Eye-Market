@@ -32,7 +32,7 @@ export class ServerService {
   uploadDataFrmLocalServer(data) {
     this.newDataLog = [];
     for (let i = 0; i < data.length; i++) {
-      if(data[i].altered) {
+      if(data[i].altered && data[i].dayOfAltered == new Date().getDay()) {
         this.newDataLog.push(data[i]);
       }
     }
@@ -49,19 +49,19 @@ export class ServerService {
     return this.keeper;
   }
 
-  getPocValidation(pocId) {
-      let data = JSON.parse(localStorage.getItem('data'));
+  getPocValidation(pocCoord) {
+      // let data = JSON.parse(localStorage.getItem('data'));
       let userLat = 6.57844;
       let userLong  = 3.30546;
 
-      data.forEach(element => {
-        if(element.id==pocId){
-          this.poc.lat = element.latitude;
-          this.poc.long = element.longitude;
-        }
-      });
+      // data.forEach(element => {
+        // if(element.id==pocId){
+          // this.poc.lat = element.latitude;
+          // this.poc.long = element.longitude;
+      //   }
+      // });
 
-      let distance = this.doCalc(userLat, userLong, this.poc);
+      let distance = this.doCalc(userLat, userLong, pocCoord);
       // convert to metters
       return distance*1000; 
        

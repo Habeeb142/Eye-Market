@@ -10,35 +10,39 @@ background-color: #fff;
 }
 
 .card{
-height: 250px;
+
 position: absolute;
 top: 80%;
 left: 50%;
 transform: translate(-50%, -50%);
-/* z-index: 2; */
+/* z-index: 0; */
 width: 350px;
-background-color: rgba(0,0,0,0.65) !important;
+background-color: rgba(163, 56, 56, 0.85) !important;
+}
+.c{
+    max-height: 250px;
+    overflow-y: scroll;
 }
     
- span{
-    font-size: 60px;
-    margin-left: 10px;
-    color: #F79520;
-    }
-span:hover{
+ 
+/* span:hover{
     color: white;
     cursor: pointer;
-    }
+    } */
     
-    .card-header h3{
+    .card-header {
     color: white;
+    font-size: 15px;
     }
     
     span{
-    width: 50px;
-    background-color: #F79520;
-    color: black;
-    border:0 !important;
+    width: 50%;
+    background-color: #fff;
+    color: #B7472A;
+    border: 1px solid white;
+    padding: 2px 11px 2px 11px;
+    font-weight: bold;
+    font-size: 16px;
     }
 
     .traffic {
@@ -46,7 +50,5 @@ span:hover{
         min-height: 6px;
         max-height: 15px;
         margin: 8px;
-        
         /* border-radius: 2px; */
-
     }

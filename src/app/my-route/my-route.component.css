@@ -1,5 +1,5 @@
 .modal-header {
-    background-color: #F79520;
+    background-color: #B7472A;
 }
 
 .content {
@@ -9,13 +9,13 @@
 
 .d-flex {
     background: #FFF;
-    color: #F79520;
+    color: #B7472A;
     border-radius: 5px;;
     font-weight: normal
 }
 
 .d-flex:hover{
-    background: #F79520;
+    background: #B7472A;
     color: white;
 }
 
@@ -37,12 +37,12 @@ html,body{
     transform: translate(-50%, -50%);
     /* z-index: 2; */
     width: 350px;
-    background-color: rgba(182, 116, 41, 0.85) !important;
+    background-color: rgba(163, 56, 56, 0.85) !important;
     }
 
     .card-header h3{
     color: white;
-    background-color: #F79520;
+    border: 1px solid white;
     padding: 5px;
     border-radius: 5px;
     font-size: 17px

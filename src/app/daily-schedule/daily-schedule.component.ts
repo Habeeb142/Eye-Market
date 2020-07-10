@@ -42,8 +42,8 @@ export class DailyScheduleComponent implements OnInit {
 
     this.dailyScheduleShow = false;
     document.getElementById('btnAdd').style.background = '#FFF';
-    document.getElementById('btnAdd').style.color = '#F79520';
-    document.getElementById('btnList').style.background = '#F79520';
+    document.getElementById('btnAdd').style.color = '#B7472A';
+    document.getElementById('btnList').style.background = '#B7472A';
     document.getElementById('btnList').style.color = '#FFF';
     (this.pocsToAdd.length == 0)? this.pushPocToBeAdded() : null;
 
@@ -66,11 +66,13 @@ export class DailyScheduleComponent implements OnInit {
               }
             }
             this.pocsToAdd.unshift(element);
+            this.pocsToAdd.sort(function(a,b){return a.distance - b.distance})
         }
         
         else{
           //checking if we have no data in d service to avoid error - undefiuned...
           this.pocsToAdd.unshift(element);
+          this.pocsToAdd.sort(function(a,b){return a.distance - b.distance})
         }
       }
     });
@@ -81,8 +83,8 @@ export class DailyScheduleComponent implements OnInit {
 
     this.dailyScheduleShow = true;
     document.getElementById('btnList').style.background = '#FFF';
-    document.getElementById('btnList').style.color = '#F79520';
-    document.getElementById('btnAdd').style.background = '#F79520';
+    document.getElementById('btnList').style.color = '#B7472A';
+    document.getElementById('btnAdd').style.background = '#B7472A';
     document.getElementById('btnAdd').style.color = '#FFF';
     (this.pocsOnSchedule.length == 0)? this.pushDailySchedule(data) : null;
 

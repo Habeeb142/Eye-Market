@@ -39,13 +39,15 @@ export class LoginComponent implements OnInit {
           this.server.setData(this.user.email);
         }
       
+        else if(data.pocs.length == 0) {
+          this.notice = 'Invalid Email';
+        }
+
         else if(data.pocs[0].activated == 1){
           this.userId = false; this.password = !this.userId; this.resetPassword = this.userId
         }
 
-        else {
-          this.notice = 'Invalid Email';
-        }
+       
 
       }, error => this.handleError(error.status))
     }
@@ -67,6 +69,9 @@ export class LoginComponent implements OnInit {
 
         if(data.success == true) {
           this.auth.setAuth(this.user.email);
+
+          this
+
           window.location.reload(false);
         }
 

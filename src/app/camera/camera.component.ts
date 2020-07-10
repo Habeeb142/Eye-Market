@@ -10,19 +10,26 @@ declare var $: any;
   styleUrls: ['./camera.component.css']
 })
 export class CameraComponent implements OnInit {
-  pocId; notice;
+  pocId; notice; amOnline; success:boolean;
+
   constructor(private server: ServerService, public rout: Router, private localServer: LocalServerService) { }
   
   ngOnInit(): void {
 
     // check IFU RE BN ROUTED WEL
     this.getPocId();
+    this.success = false;
+    this.amOnline = this.server.checkIfIAmOnline();
 
     $(document).ready(function(){
       
       var photo = document.getElementById('photo');
       var video = document.querySelector('video');
       var canvas = document.querySelector('canvas');
+      var startButton = document.getElementById('startbutton');
+      var proceed = document.getElementById('proceed');
+      var reSnap = document.getElementById('reSnap');
+
       var context = canvas.getContext('2d');
       var w, h, ratio;
 
@@ -33,7 +40,6 @@ export class CameraComponent implements OnInit {
         canvas.width = w;
         canvas.height = parseInt(h, 10);
         
-        
       }, false);
 
       $('#startbutton').click(function(){
@@ -41,16 +47,28 @@ export class CameraComponent implements OnInit {
         context.fillRect(0, 0, w, h);
         context.drawImage(video, 0, 0, w, h);
         
-        document.getElementById('photo').style.display = 'block';
-        document.getElementById('video').style.display = 'none';
-        document.getElementById('startbutton').style.display = 'none';
-        document.getElementById('proceed').style.display = 'block';
-        document.getElementById('reSnap').style.display = 'block';
+        photo.style.display = 'block';
+        video.style.display = 'none';
+        startButton.style.display = 'none';
+        proceed.style.display = 'block';
+        reSnap.style.display = 'block';
 
         var data = canvas.toDataURL('image/png');
         photo.setAttribute('src', data);
+        // incase u need fr fdownload of image
+        // document.getElementById('img').setAttribute('href', data);
+        // use for what u want
         console.log(data);
         
+      })
+
+      $('#reSnap').click(function(){
+        photo.style.display = 'none';
+        video.style.display = 'block';
+        startButton.style.display = 'block';
+        proceed.style.display = 'none';
+        reSnap.style.display = 'none';
+
       })
 
     });
@@ -73,16 +91,46 @@ export class CameraComponent implements OnInit {
         if(dataFrmStore[i].id == this.pocId) {
           dataFrmStore[i].traffic = 'pending';
           dataFrmStore[i].altered = true;
+          dataFrmStore[i].dayOfAltered = new Date().getDay();
         }
         
       }
       this.localServer.updateLocalDisk(dataFrmStore);
       this.notice='Updating...';
-      this.server.uploadDataFrmLocalServer(dataFrmStore).subscribe(data=>{
-        this.notice = 'Proceed';
-        this.rout.navigate(['MyRoute']);
+      // check of am online
+      if(this.amOnline) {
 
-      }, error => this.handleError(error.status))
+        this.server.uploadDataFrmLocalServer(dataFrmStore).subscribe(data=>{
+          this.notice = 'Proceed';
+          this.success = true;
+          document.getElementById('photo').style.display='none';
+          document.getElementById('video').style.display='none';
+          document.getElementById('reSnap').style.display='none';
+          document.getElementById('proceed').style.display='none';
+          document.getElementById('startbutton').style.display='none';
+
+          setTimeout(() => {
+            this.rout.navigate(['MyRoute']);
+          }, 5000);
+  
+        }, error => this.handleError(error.status))
+
+      }
+
+      else {
+        this.notice = 'Proceed';
+        this.success = true;
+        document.getElementById('photo').style.display='none';
+        document.getElementById('video').style.display='none';
+        document.getElementById('reSnap').style.display='none';
+        document.getElementById('proceed').style.display='none';
+        document.getElementById('startbutton').style.display='none';
+
+        setTimeout(() => {
+          this.rout.navigate(['MyRoute']);
+        }, 5000);
+
+      }
   }
   
   handleError(status) {

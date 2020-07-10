@@ -1,19 +1,37 @@
 <div class="container" *ngIf="!loading">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
-            <div class="card-head mt-2 p-3" style="background-color: #F79520; color: white; font-size: 18px;">
+            <div class="card-head mt-2 p-3 pl-0" style="background-color: #B7472A; color: white; font-size: 18px;">
                 <i class="fa fa-arrow-left" style="color: white;" aria-hidden="true" (click) = "backFunc()"></i>
-                <span class="offset-3">Cooler Execution</span>
+                <span class="offset-5">Tasks</span>
             </div>
-            <div class="card-bod p-3 mt-5 d-flex" *ngIf="success" onclick="startCamInIndexHtml()" (click)="snapShot()">
-               Take photo
+            <div class="card-bod p-3 mt-1 d-flex" *ngIf="success" onclick="startCamInIndexHtml()" (click)="snapShot()">
+               Chiller Execution
                <i class="fa fa-camera ml-auto" aria-hidden="true"></i>
             </div>
-            <div class="card-bod p-3 mt-5 d-flex" *ngIf="failure" (click)="handleError()" >
+            <div class="card-bod p-3 mt-1 d-flex" *ngIf="failure" (click)="handleError()" >
                 {{alert}}
                <i class="fa fa-camera ml-auto" aria-hidden="true"></i>
             </div>
-      
+
+            <div class="card-bod p-3 mt-1 d-flex">
+                Price Poster
+                <i class="fa fa-camera ml-auto" aria-hidden="true"></i>
+             </div>
+            <div class="card-bod p-3 mt-1 d-flex">
+                Chairs / Table
+                <i class="fa fa-camera ml-auto" aria-hidden="true"></i>
+             </div>
+             
+             <div class="card-head mt-5 p-3 text-center" style="background-color: #B7472A; color: white; font-size: 18px;">
+                <span>Opportunity</span>
+            </div>
+
+             <div class="card-head mt-5 p-3 text-center" style="background-color: #B7472A; color: white; font-size: 18px;">
+                <span>Survey</span>
+            </div>
+           
+            
         </div>
     </div>
 </div>
@@ -22,7 +40,7 @@
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-head text-center text-justify" 
-            style="background-color: #F79520;">
+            style="background-color: #B7472A;">
                 <h3 style="font-size: 16px; letter-spacing: 1px" class="mt-1">Validation Report</h3>
             </div>
             <div class="card-body text-justify text-center pt-5" style="font-size: 15px; color: white">

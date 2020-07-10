@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   public dataCollector;
   public coord;
   public userId;
+  showPocList: boolean;
 
   constructor(
     private auth: AuthService,
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.dataFunc();
     this.day = this.dateFunc();
 
+    this.showPocList = true;
   }
   
   initMap(data) {
@@ -59,13 +61,21 @@ export class HomeComponent implements OnInit {
 
 
   setMarkers(map) {
+    var icon = {
+      url: "https://salesboxai.com/wp-content/uploads/2019/05/marker-icon.png",
+      // url: "https://www.shareicon.net/data/512x512/2016/08/24/819488_pin_512x512.png",
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+  };
+  
 
     for (var i = 0; i < this.dataCollector.length; i++) {
 
       this.marker = new google.maps.Marker({
       map: map,
       // draggable: true,
-      icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      icon: icon,
       animation: google.maps.Animation.DROP,
       position: {lat: parseFloat(this.dataCollector[i].latitude), lng: parseFloat(this.dataCollector[i].longitude) },
       title: this.dataCollector[i].outlet
@@ -86,8 +96,32 @@ export class HomeComponent implements OnInit {
   dataFunc() {
 
     this.userId = localStorage.getItem('userId');
-    this.dataCollector = this.localServer.supplyDataFromLocalStorage();
-    this.initMap(this.dataCollector);
+    let dataCollector_ = [];
+    dataCollector_ = this.localServer.supplyDataFromLocalStorage().slice(0, 9);
+    if(dataCollector_ !== null) {
+    dataCollector_ = dataCollector_.sort(function(a, b){return a.distance - b.distance});
+    dataCollector_.forEach(element => {
+      if(element.distance > 999) {
+        element.distance = (element.distance/1000).toFixed(2)+' km';
+      }
+      else {
+        element.distance = element.distance+' m';
+      }
+    });
+
+    this.initMap(dataCollector_);
+  }
+
+  else {
+    this.server.getData(this.userId).subscribe(data=>{
+      this.dataCollector=data.pocs;
+      this.localServer.updateLocalDisk(this.dataCollector);
+      // ds was done when data were nt showin on fifrst login
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    })
+  }
 
   }
 
@@ -119,6 +153,14 @@ export class HomeComponent implements OnInit {
 
   closeCallShedule() {
     document.getElementById('callShedule').style.display = 'none'
+  }
+
+  hidePocList() {
+    this.showPocList = false;
+  }
+
+  showPocListFunc() {
+    this.showPocList = true;
   }
 
 }

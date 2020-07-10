@@ -10,11 +10,11 @@ html,body{
     }
     
     .card{
-    height: 250px;
+    height: 85vh;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 12%;
+    /*left: 50%;
+    transform: translate(-50%, -50%); */
     /* z-index: 2; */
     width: 350px;
     background-color: rgba(0,0,0,0.65) !important;
@@ -23,7 +23,7 @@ html,body{
     .social_icon span{
     font-size: 60px;
     margin-left: 10px;
-    color: #F79520;
+    color: #B7472A;
     }
     .social_icon span:hover{
     color: white;
@@ -32,13 +32,13 @@ html,body{
     
     .card-head h3{
     color: white;
-    background-color: #F79520;
+    background-color: #B7472A;
     padding: 7px;
     }
     
     .input-group-prepend span{
     width: 50px;
-    background-color: #F79520;
+    background-color: #B7472A;
     color: black;
     border:0 !important;
     }
@@ -63,21 +63,21 @@ html,body{
     
     .login_btn{
     color: black;
-    background-color:#F79520;
+    background-color:#B7472A;
     opacity: .8;
     font-weight: bold;
     width: 50%;
     }
     
     .loading{
-    color: #F79520;
+    color: #B7472A;
     background-color: #000;
     opacity: .8;
     font-weight: bold;
     width: 50%;
     }
     .card-footer {
-        background-color: #F79520;
+        background-color: #B7472A;
         color: white;
         width: 50%;
         border-radius: 5px;
@@ -98,9 +98,9 @@ html,body{
     }
 
     .card-bod:hover {
-        border: 1px solid #F79520;
+        border: 1px solid #B7472A;
         background-color: white;
-        color: #F79520;
+        color: #B7472A;
         font-size: large;
     }
 

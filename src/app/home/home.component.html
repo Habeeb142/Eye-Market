@@ -2,21 +2,26 @@
 <div class="container">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
-            <div class="card-header text-center">
-                <!-- <h3>{{day}}'s Call Schedule</h3> -->
-            </div>
-            <div class="card-body mr-1 ml-1" style="background: white;">
-                <a href="javascript:void(0)" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
+           
+                <div class="c mr-1 ml-1 p-1 pl-2 pt-0" *ngIf="showPocList">
+                    <a href="javascript:void(0)" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
                     <!-- <div class="col-2">{{i+1}}:</div>  -->
-                    <div class="traffic" style="background-color: grey; border: 1px solid grey;" *ngIf="data?.traffic!=='pending'"></div> 
-                    <div class="traffic" style="background-color: yellow; border: 1px solid yellow;" *ngIf="data?.traffic=='pending'"></div> 
-                    <div class="text-justify">{{ data?.outlet }}</div> <br/>
-                </a>
+                        <div class="traffic" style="background-color: white; border: 1px solid white;" *ngIf="data?.traffic!=='pending'"></div> 
+                        <div class="traffic" style="background-color: yellow; border: 1px solid yellow;" *ngIf="data?.traffic=='pending'"></div> 
+                        <div class="text-justify" style="letter-spacing: 1px;color: white;">{{ data?.outlet }}</div><br />
+                        
+                        <p class="text-justify ml-2 col-12 d-flex" style="letter-spacing: 1px; color: white">
+                            {{data?.address}} 
+                            <em class="ml-auto mr-2">{{data?.distance}}</em> 
+                        </p>
+                    </a>
                 <!-- <a [routerLink]="['/poc',data?.id ]" *ngFor = "let data of dataCollector; let i = index;" class="row" style="color: #F79520;">
                     <div class="col-2">{{i+1}}:</div> 
                     <div class="text-justify">{{ data?.outlet }}</div> <br/>
                 </a> -->
+                <span *ngIf="showPocList" class="text-center offset-5" (click) = "hidePocList()">Close</span>
             </div>
+            <span *ngIf="!showPocList" class="text-center offset-3" (click) = "showPocListFunc()">Show Poc List</span>
         </div>
     </div>
 </div>

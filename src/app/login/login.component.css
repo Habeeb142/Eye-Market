@@ -23,7 +23,7 @@ background-color: rgba(0,0,0,0.65) !important;
 .social_icon span{
 font-size: 60px;
 margin-left: 10px;
-color: #F79520;
+color: #B7472A;
 }
 .social_icon span:hover{
 color: white;
@@ -36,7 +36,7 @@ color: white;
 
 .input-group-prepend span{
 width: 50px;
-background-color: #F79520;
+background-color: #B7472A;
 color: black;
 border:0 !important;
 }
@@ -61,14 +61,14 @@ margin-right: 5px;
 
 .login_btn{
 color: black;
-background-color:#F79520;
+background-color:#B7472A;
 opacity: .8;
 font-weight: bold;
 width: 50%;
 }
 
 .loading{
-color: #F79520;
+color: #B7472A;
 background-color: #000;
 opacity: .8;
 font-weight: bold;

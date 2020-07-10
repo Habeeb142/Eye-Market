@@ -25,6 +25,8 @@
                     Pocs Scheduled For {{day}} ({{pocsOnSchedule?.length}})
                 </a>
                 <a [routerLink]="['/poc',data?.id ]" class="list-group-item" style="font-size: 15px;" *ngFor = "let data of pocsOnSchedule">
+                    <span class="traffic" style="background-color: grey; border: 1px solid grey;" *ngIf="data?.traffic!=='pending'"></span>
+                    <span class="traffic" style="background-color: yellow; border: 1px solid yellow;" *ngIf="data?.traffic=='pending'"></span>
                     {{ data?.outlet }}
                 </a>
             </div>
@@ -34,6 +36,8 @@
                     Select Poc to be added to your {{day}} Schedule
                 </a>
                 <a (click) = "addThisPoc(data)" class="list-group-item d-flex" style="font-size: 15px;" *ngFor = "let data of pocsToAdd">
+                    <span class="traffic" style="background-color: grey; border: 1px solid grey;" *ngIf="data?.traffic!=='pending'"></span>
+                    <span class="traffic" style="background-color: yellow; border: 1px solid yellow;" *ngIf="data?.traffic=='pending'"></span>
                     {{ data?.outlet }}
                 <i class="fa fa-check ml-auto" style="color: green;" aria-hidden="true" *ngIf = "data.markMe"></i>
                     <i class="fa fa-plus-circle ml-auto"  style="color: green" aria-hidden="true"*ngIf = "!data.markMe"></i>

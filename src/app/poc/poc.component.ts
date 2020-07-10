@@ -11,6 +11,11 @@ export class PocComponent implements OnInit {
 
   public pocId; loading:boolean; success:boolean; failure: boolean; alert;
 
+  public pocCoord = {
+    lat: null,
+    long: null
+  }
+
   constructor(public actRoute: ActivatedRoute, private server: ServerService, public rout: Router) { }
 
   ngOnInit(): void {
@@ -27,9 +32,18 @@ export class PocComponent implements OnInit {
   }
 
   getPocValidation(pocId) {
+     let data = JSON.parse(localStorage.getItem('data'));
+
+     data.forEach(element => {
+       if(element.id==pocId){
+         this.pocCoord.lat = element.latitude;
+         this.pocCoord.long = element.longitude;
+       }
+     });
+
     this.loading = true;
     this.success =  this.failure = !this.loading;
-    this.proceed(this.server.getPocValidation(pocId))
+    this.proceed(this.server.getPocValidation(this.pocCoord))
   }
 
   handleError() {
